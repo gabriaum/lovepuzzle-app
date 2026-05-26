@@ -11,7 +11,6 @@ class DailyLimitService(
     private val expireData: ExpireData,
     private val limit: Int
 ) {
-
     fun applyToButton(button: Button, onAvailable: () -> Unit) {
         if (!expireData.availableToContinue(limit)) {
             val remainingTime = expireData.getTime()

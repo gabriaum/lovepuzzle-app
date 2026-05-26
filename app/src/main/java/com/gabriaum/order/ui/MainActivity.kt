@@ -13,7 +13,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
@@ -23,18 +22,17 @@ import com.gabriaum.order.backend.data.ExpireData
 import com.gabriaum.order.backend.data.impl.AccountDataImpl
 import com.gabriaum.order.backend.data.impl.ExpireDataImpl
 import com.gabriaum.order.backend.database.sql.SQLConnection
-import com.gabriaum.order.domain.controller.ResponseController
+import com.gabriaum.order.domain.controller.ResponseManager
 import com.gabriaum.order.domain.model.Response
 import com.gabriaum.order.domain.service.DailyLimitService
 import com.gabriaum.order.domain.service.WebhookService
 import java.util.Locale
-import kotlin.math.exp
 
 class MainActivity : AppCompatActivity() {
     private lateinit var sqlConnection: SQLConnection
     private lateinit var accountData: AccountData
     private lateinit var expireData: ExpireData
-    private val responseController = ResponseController()
+    private val responseManager = ResponseManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +71,7 @@ class MainActivity : AppCompatActivity() {
     private fun loadProgressBar() {
         val progressBar: ProgressBar = findViewById(R.id.progressBar)
         val level: Int = accountData.getLevel() + 1
-        val levels: Int = responseController.size
+        val levels: Int = responseManager.size
         progressBar.progress = level
         progressBar.max = levels
 
@@ -90,7 +88,7 @@ class MainActivity : AppCompatActivity() {
 
         button.setOnClickListener {
             val level: Int = accountData.getLevel()
-            val response: Response = responseController[level]
+            val response: Response = responseManager[level]
             val userAnswer: String =
                 expectedResponseInButton.text.toString().toLowerCase(Locale.ROOT)
             if (!userAnswer.isEmpty()) {
@@ -100,7 +98,7 @@ class MainActivity : AppCompatActivity() {
                         "",
                         "> New level reached:  **" + (accountData.getLevel() + 1) + "**."
                     )
-                    if ((level + 1) >= responseController.size) {
+                    if ((level + 1) >= responseManager.size) {
                         val intent = Intent(this@MainActivity, OrderActivity::class.java)
                         startActivity(intent)
                     } else {
@@ -159,11 +157,11 @@ class MainActivity : AppCompatActivity() {
         val question: TextView = findViewById(R.id.tvQuestion)
         val questionNumber: TextView = findViewById(R.id.tvQuestionNumber)
         val level: Int = accountData.getLevel()
-        if (level >= responseController.size) {
+        if (level >= responseManager.size) {
             val intent = Intent(this@MainActivity, OrderActivity::class.java)
             startActivity(intent)
         } else {
-            val response: Response = responseController[level]
+            val response: Response = responseManager[level]
             question.text = response.question
             questionNumber.text = (level + 1).toString()
         }

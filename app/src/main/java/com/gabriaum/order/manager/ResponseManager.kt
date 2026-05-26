@@ -2,7 +2,7 @@ package com.gabriaum.order.domain.controller
 
 import com.gabriaum.order.domain.model.Response
 
-class ResponseController: ArrayList<Response>() {
+class ResponseManager: ArrayList<Response>() {
     init {
         add(Response("Question 1", "yes"))
         add(Response("Question 2", "yes"))
