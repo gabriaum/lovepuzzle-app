@@ -24,8 +24,8 @@ class OrderActivity : AppCompatActivity() {
 
     private val handler = Handler(Looper.getMainLooper())
 
-    private val mainMessage = "Olhe lentamente"
-    private val secondaryMessage = "para trás"
+    private val mainMessage = "Congratulations"
+    private val secondaryMessage = "You completed the puzzles!"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

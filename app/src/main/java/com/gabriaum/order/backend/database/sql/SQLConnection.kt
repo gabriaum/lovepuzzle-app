@@ -7,7 +7,7 @@ class SQLConnection(private val context: Context) {
     private var db: SQLiteDatabase? = null
 
     fun connect() {
-        db = context.openOrCreateDatabase("gabriaum_order.db", Context.MODE_PRIVATE, null)
+        db = context.openOrCreateDatabase("lovepuzzle.db", Context.MODE_PRIVATE, null)
     }
 
     fun disconnect() {

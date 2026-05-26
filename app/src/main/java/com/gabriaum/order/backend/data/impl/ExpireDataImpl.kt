@@ -4,37 +4,35 @@ import android.database.sqlite.SQLiteDatabase
 import com.gabriaum.order.backend.data.ExpireData
 
 class ExpireDataImpl(db: SQLiteDatabase) : ExpireData(db) {
-    override fun register(name: String) {
-        db.execSQL("INSERT INTO usersExpires(name, progressedLevels, availableAt) VALUES(?, ?, ?)", arrayOf(name, 0, -1))
+    override fun register() {
+        db.execSQL("INSERT INTO userExpires(progressedLevels, availableAt) VALUES(?, ?);", arrayOf(0, -1))
     }
 
-    override fun blockForOneDay(name: String) {
+    override fun blockForOneDay() {
         val oneDayMillis = 24 * 60 * 60 * 1000L
         val blockUntil = System.currentTimeMillis() + oneDayMillis
         db.execSQL(
-            "UPDATE usersExpires SET availableAt = ? WHERE name = ?",
-            arrayOf(blockUntil, name)
+            "UPDATE userExpires SET availableAt = ?;",
+            arrayOf(blockUntil)
         )
     }
 
-    override fun addLevelProgressed(name: String) {
+    override fun addLevelProgressed() {
         db.execSQL(
-            "UPDATE usersExpires SET progressedLevels = progressedLevels + 1 WHERE name = ?",
-            arrayOf(name)
+            "UPDATE userExpires SET progressedLevels = progressedLevels + 1;"
         )
     }
 
-    override fun resetLevelProgressed(name: String) {
+    override fun resetLevelProgressed() {
         db.execSQL(
-            "UPDATE usersExpires SET progressedLevels = 0 WHERE name = ?",
-            arrayOf(name)
+            "UPDATE userExpires SET progressedLevels = 0;"
         )
     }
 
-    override fun getProgressedLevels(name: String): Int {
+    override fun getProgressedLevels(): Int {
         val cursor = db.rawQuery(
-            "SELECT progressedLevels FROM usersExpires WHERE name = ?",
-            arrayOf(name)
+            "SELECT progressedLevels FROM userExpires;",
+            arrayOf()
         )
         var levels = 0
         if (cursor.moveToFirst()) {
@@ -47,8 +45,8 @@ class ExpireDataImpl(db: SQLiteDatabase) : ExpireData(db) {
         return levels
     }
 
-    override fun getTime(name: String): Long {
-        val cursor = db.rawQuery("SELECT availableAt FROM usersExpires WHERE name = ?", arrayOf(name))
+    override fun getTime(): Long {
+        val cursor = db.rawQuery("SELECT availableAt FROM userExpires;", arrayOf())
         var availableAt = -1L
         if (cursor.moveToFirst()) {
             val availableAtIndex = cursor.getColumnIndex("availableAt")
@@ -66,8 +64,8 @@ class ExpireDataImpl(db: SQLiteDatabase) : ExpireData(db) {
         return if (remainingTime > 0) remainingTime else 0L
     }
 
-    override fun availableToContinue(name: String, limit: Int): Boolean {
-        val cursor = db.rawQuery("SELECT * FROM usersExpires WHERE name = ?", arrayOf(name))
+    override fun availableToContinue(limit: Int): Boolean {
+        val cursor = db.rawQuery("SELECT * FROM userExpires;", arrayOf())
         var availableAt = -1L
         if (cursor.moveToFirst()) {
             val availableAtIndex = cursor.getColumnIndex("availableAt")
@@ -79,8 +77,8 @@ class ExpireDataImpl(db: SQLiteDatabase) : ExpireData(db) {
         return System.currentTimeMillis() >= availableAt
     }
 
-    override fun exists(name: String): Boolean {
-        val cursor = db.rawQuery("SELECT 1 FROM usersExpires WHERE name = ?", arrayOf(name))
+    override fun exists(): Boolean {
+        val cursor = db.rawQuery("SELECT 1 FROM userExpires;", arrayOf())
         val exists = cursor.moveToFirst()
         cursor.close()
         return exists

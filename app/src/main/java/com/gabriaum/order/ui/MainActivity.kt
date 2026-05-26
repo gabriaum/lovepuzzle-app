@@ -50,15 +50,15 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launchWhenCreated {
             accountData = AccountDataImpl(sqlConnection.getDatabase())
-            if (!accountData.exists("gabriaum"))
-                accountData.register("gabriaum", 0)
+            if (!accountData.exists())
+                accountData.register( 0)
 
             expireData = ExpireDataImpl(sqlConnection.getDatabase())
-            if (!expireData.exists("gabriaum"))
-                expireData.register("gabriaum")
+            if (!expireData.exists())
+                expireData.register()
 
             val button: Button = findViewById(R.id.unlockButton)
-            DailyLimitService(expireData, "gabriaum", 5).applyToButton(button) {
+            DailyLimitService(expireData, 5).applyToButton(button) {
                 clickableButton()
             }
 
@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadProgressBar() {
         val progressBar: ProgressBar = findViewById(R.id.progressBar)
-        val level: Int = accountData.getLevel("gabriaum") + 1
+        val level: Int = accountData.getLevel() + 1
         val levels: Int = responseController.size
         progressBar.progress = level
         progressBar.max = levels
@@ -89,16 +89,16 @@ class MainActivity : AppCompatActivity() {
         expectedResponseInButton.filters = arrayOf()
 
         button.setOnClickListener {
-            val level: Int = accountData.getLevel("gabriaum")
+            val level: Int = accountData.getLevel()
             val response: Response = responseController[level]
             val userAnswer: String =
                 expectedResponseInButton.text.toString().toLowerCase(Locale.ROOT)
             if (!userAnswer.isEmpty()) {
                 if (userAnswer.contains(response.expected)) {
-                    accountData.upLevel("gabriaum")
+                    accountData.upLevel()
                     WebhookService().sendDiscordWebhook(
                         "",
-                        "> New level reached:  **" + (accountData.getLevel("gabriaum") + 1) + "**."
+                        "> New level reached:  **" + (accountData.getLevel() + 1) + "**."
                     )
                     if ((level + 1) >= responseController.size) {
                         val intent = Intent(this@MainActivity, OrderActivity::class.java)
@@ -115,14 +115,14 @@ class MainActivity : AppCompatActivity() {
                     )
                 }
 
-                expireData.addLevelProgressed("gabriaum")
-                if (expireData.getProgressedLevels("gabriaum") >= 5) {
-                    expireData.blockForOneDay("gabriaum")
-                    DailyLimitService(expireData, "gabriaum", 5).applyToButton(button) {
+                expireData.addLevelProgressed()
+                if (expireData.getProgressedLevels() >= 5) {
+                    expireData.blockForOneDay()
+                    DailyLimitService(expireData, 5).applyToButton(button) {
                         clickableButton()
                     }
                 } else {
-                    val attemptsLeft = 5 - expireData.getProgressedLevels("gabriaum")
+                    val attemptsLeft = 5 - expireData.getProgressedLevels()
                     Toast.makeText(
                         this,
                         "You have $attemptsLeft attempts remaining",
@@ -158,7 +158,7 @@ class MainActivity : AppCompatActivity() {
     private fun loadQuestion() {
         val question: TextView = findViewById(R.id.tvQuestion)
         val questionNumber: TextView = findViewById(R.id.tvQuestionNumber)
-        val level: Int = accountData.getLevel("gabriaum")
+        val level: Int = accountData.getLevel()
         if (level >= responseController.size) {
             val intent = Intent(this@MainActivity, OrderActivity::class.java)
             startActivity(intent)

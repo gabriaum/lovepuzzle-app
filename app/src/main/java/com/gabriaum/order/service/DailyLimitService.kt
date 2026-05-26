@@ -9,13 +9,12 @@ import kotlin.math.exp
 
 class DailyLimitService(
     private val expireData: ExpireData,
-    private val username: String,
     private val limit: Int
 ) {
 
     fun applyToButton(button: Button, onAvailable: () -> Unit) {
-        if (!expireData.availableToContinue(username, limit)) {
-            val remainingTime = expireData.getTime(username)
+        if (!expireData.availableToContinue(limit)) {
+            val remainingTime = expireData.getTime()
             button.setBackgroundColor(ContextCompat.getColor(button.context, android.R.color.holo_red_dark))
             button.isEnabled = false
 
@@ -28,9 +27,9 @@ class DailyLimitService(
                 }
 
                 override fun onFinish() {
-                    expireData.resetLevelProgressed("gabriaum")
+                    expireData.resetLevelProgressed()
                     button.setBackgroundColor(ContextCompat.getColor(button.context, R.color.originalButtonColor))
-                    button.text = "Verificar"
+                    button.text = "Check"
                     button.isEnabled = true
                     onAvailable()
                 }
