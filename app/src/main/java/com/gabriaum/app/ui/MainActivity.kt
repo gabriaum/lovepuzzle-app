@@ -51,11 +51,11 @@ class MainActivity : AppCompatActivity(), DailyLimitListener {
         }
 
         lifecycleScope.launchWhenCreated {
-            accountData = AccountDataImpl(sqlConnection.getDatabase())
+            accountData = AccountDataImpl(sqlConnection)
             if (!accountData.exists())
                 accountData.register( 0)
 
-            expireData = ExpireDataImpl(sqlConnection.getDatabase())
+            expireData = ExpireDataImpl(sqlConnection)
             if (!expireData.exists())
                 expireData.register()
 
