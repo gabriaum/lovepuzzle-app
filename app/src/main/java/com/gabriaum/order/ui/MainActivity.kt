@@ -24,15 +24,19 @@ import com.gabriaum.order.backend.data.impl.ExpireDataImpl
 import com.gabriaum.order.backend.database.sql.SQLConnection
 import com.gabriaum.order.domain.controller.ResponseManager
 import com.gabriaum.order.domain.model.Response
+import com.gabriaum.order.domain.service.DailyLimitListener
 import com.gabriaum.order.domain.service.DailyLimitService
 import com.gabriaum.order.domain.service.WebhookService
+import androidx.core.content.ContextCompat
 import java.util.Locale
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), DailyLimitListener {
     private lateinit var sqlConnection: SQLConnection
     private lateinit var accountData: AccountData
     private lateinit var expireData: ExpireData
     private val responseManager = ResponseManager()
+    private lateinit var unlockButton: Button
+    private var currentDailyLimitService: DailyLimitService? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,13 +59,11 @@ class MainActivity : AppCompatActivity() {
             if (!expireData.exists())
                 expireData.register()
 
-            val button: Button = findViewById(R.id.unlockButton)
-            DailyLimitService(expireData, 5).applyToButton(button) {
-                clickableButton()
-            }
+            unlockButton = findViewById(R.id.unlockButton)
+            currentDailyLimitService = DailyLimitService(expireData, 5)
+            currentDailyLimitService!!.check(this@MainActivity)
 
             loadQuestion()
-//            clickableButton()
             loadProgressBar()
         }
 
@@ -116,9 +118,8 @@ class MainActivity : AppCompatActivity() {
                 expireData.addLevelProgressed()
                 if (expireData.getProgressedLevels() >= 5) {
                     expireData.blockForOneDay()
-                    DailyLimitService(expireData, 5).applyToButton(button) {
-                        clickableButton()
-                    }
+                    currentDailyLimitService = DailyLimitService(expireData, 5)
+                    currentDailyLimitService!!.check(this@MainActivity)
                 } else {
                     val attemptsLeft = 5 - expireData.getProgressedLevels()
                     Toast.makeText(
@@ -165,5 +166,24 @@ class MainActivity : AppCompatActivity() {
             question.text = response.question
             questionNumber.text = (level + 1).toString()
         }
+    }
+
+    override fun onLimitActive(remainingTimeMs: Long) {
+        unlockButton.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_red_dark))
+        unlockButton.isEnabled = false
+    }
+
+    override fun onTimerTick(hours: Long, minutes: Long, seconds: Long) {
+        unlockButton.text = String.format("%02d:%02d:%02d", hours, minutes, seconds)
+    }
+
+    override fun onLimitExpired() {
+        unlockButton.setBackgroundColor(ContextCompat.getColor(this, R.color.originalButtonColor))
+        unlockButton.text = "Check"
+    }
+
+    override fun onAvailable() {
+        unlockButton.isEnabled = true
+        clickableButton()
     }
 }
