@@ -1,7 +1,7 @@
-package com.gabriaum.order.backend.data.impl
+package com.gabriaum.app.backend.data.impl
 
 import android.database.sqlite.SQLiteDatabase
-import com.gabriaum.order.backend.data.ExpireData
+import com.gabriaum.app.backend.data.ExpireData
 
 class ExpireDataImpl(db: SQLiteDatabase) : ExpireData(db) {
     override fun register() {

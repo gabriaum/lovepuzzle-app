@@ -1,7 +1,7 @@
-package com.gabriaum.order.domain.service
+package com.gabriaum.app.domain.service
 
 import android.os.CountDownTimer
-import com.gabriaum.order.backend.data.ExpireData
+import com.gabriaum.app.backend.data.ExpireData
 
 class DailyLimitService(
     private val expireData: ExpireData,

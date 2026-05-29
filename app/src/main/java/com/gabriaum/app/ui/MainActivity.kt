@@ -1,4 +1,4 @@
-package com.gabriaum.order.ui
+package com.gabriaum.app.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -16,17 +16,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
-import com.gabriaum.order.R
-import com.gabriaum.order.backend.data.AccountData
-import com.gabriaum.order.backend.data.ExpireData
-import com.gabriaum.order.backend.data.impl.AccountDataImpl
-import com.gabriaum.order.backend.data.impl.ExpireDataImpl
-import com.gabriaum.order.backend.database.sql.SQLConnection
-import com.gabriaum.order.domain.controller.ResponseManager
-import com.gabriaum.order.domain.model.Response
-import com.gabriaum.order.domain.service.DailyLimitListener
-import com.gabriaum.order.domain.service.DailyLimitService
-import com.gabriaum.order.domain.service.WebhookService
+import com.gabriaum.app.R
+import com.gabriaum.app.backend.data.AccountData
+import com.gabriaum.app.backend.data.ExpireData
+import com.gabriaum.app.backend.data.impl.AccountDataImpl
+import com.gabriaum.app.backend.data.impl.ExpireDataImpl
+import com.gabriaum.app.backend.database.sql.SQLConnection
+import com.gabriaum.app.domain.controller.ResponseManager
+import com.gabriaum.app.domain.model.Response
+import com.gabriaum.app.domain.service.DailyLimitListener
+import com.gabriaum.app.domain.service.DailyLimitService
+import com.gabriaum.app.domain.service.WebhookService
 import androidx.core.content.ContextCompat
 import java.util.Locale
 

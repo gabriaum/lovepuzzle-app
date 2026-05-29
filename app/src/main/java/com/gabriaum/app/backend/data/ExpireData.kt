@@ -1,4 +1,4 @@
-package com.gabriaum.order.backend.data
+package com.gabriaum.app.backend.data
 
 import android.database.sqlite.SQLiteDatabase
 

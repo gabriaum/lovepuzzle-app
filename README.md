@@ -51,7 +51,7 @@ Progress is persisted locally, and the app includes a daily progression limit.
 
 Edit `ResponseManager` to customize questions and expected answers:
 
-- File: `app/src/main/java/com/gabriaum/order/manager/ResponseManager.kt`
+- File: `app/src/main/java/com/gabriaum/app/manager/ResponseManager.kt`
 
 ### Daily limit
 
@@ -66,4 +66,4 @@ Current behavior in `MainActivity` + `DailyLimitService`:
 
 To enable notifications, pass your webhook URL where `sendDiscordWebhook(...)` is called:
 
-- File: `app/src/main/java/com/gabriaum/order/ui/MainActivity.kt`
+- File: `app/src/main/java/com/gabriaum/app/ui/MainActivity.kt`

@@ -4,10 +4,10 @@ plugins {
 }
 
 android {
-    namespace = "com.gabriaum.order"
+    namespace = "com.gabriaum.app"
     compileSdk = 36
     defaultConfig {
-        applicationId = "com.gabriaum.order"
+        applicationId = "com.gabriaum.app"
         minSdk = 34
         targetSdk = 36
         versionCode = 1

@@ -1,4 +1,4 @@
-package com.gabriaum.order
+package com.gabriaum.app
 
 import org.junit.Test
 

@@ -1,7 +1,7 @@
-package com.gabriaum.order.backend.data.impl
+package com.gabriaum.app.backend.data.impl
 
 import android.database.sqlite.SQLiteDatabase
-import com.gabriaum.order.backend.data.AccountData
+import com.gabriaum.app.backend.data.AccountData
 
 class AccountDataImpl(db: SQLiteDatabase) : AccountData(db) {
     override fun register(level: Int) {

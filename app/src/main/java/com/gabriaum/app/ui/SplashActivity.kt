@@ -1,4 +1,4 @@
-package com.gabriaum.order.ui
+package com.gabriaum.app.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,11 +8,10 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.gabriaum.order.R
+import com.gabriaum.app.R
 import android.graphics.drawable.GradientDrawable
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
-import android.graphics.Color
 import androidx.core.graphics.toColorInt
 
 class SplashActivity : AppCompatActivity() {
