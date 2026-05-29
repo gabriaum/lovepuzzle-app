@@ -3,7 +3,7 @@ package com.gabriaum.app.backend.data.impl
 import android.database.sqlite.SQLiteDatabase
 import com.gabriaum.app.backend.data.AccountData
 
-class AccountDataImpl(db: SQLiteDatabase) : AccountData(db) {
+class AccountDataImpl(private val db: SQLiteDatabase) : AccountData {
     override fun register(level: Int) {
         db.execSQL("INSERT INTO user(level) VALUES(?)", arrayOf(level))
     }

@@ -3,7 +3,7 @@ package com.gabriaum.app.backend.data.impl
 import android.database.sqlite.SQLiteDatabase
 import com.gabriaum.app.backend.data.ExpireData
 
-class ExpireDataImpl(db: SQLiteDatabase) : ExpireData(db) {
+class ExpireDataImpl(private val db: SQLiteDatabase) : ExpireData {
     override fun register() {
         db.execSQL("INSERT INTO userExpires(progressedLevels, availableAt) VALUES(?, ?);", arrayOf(0, -1))
     }
