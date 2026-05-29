@@ -22,11 +22,11 @@ import com.gabriaum.app.backend.data.ExpireData
 import com.gabriaum.app.backend.data.impl.AccountDataImpl
 import com.gabriaum.app.backend.data.impl.ExpireDataImpl
 import com.gabriaum.app.backend.database.sql.SQLConnection
-import com.gabriaum.app.domain.controller.ResponseManager
-import com.gabriaum.app.domain.model.Response
-import com.gabriaum.app.domain.service.DailyLimitListener
-import com.gabriaum.app.domain.service.DailyLimitService
-import com.gabriaum.app.domain.service.WebhookService
+import com.gabriaum.app.manager.ResponseManager
+import com.gabriaum.app.model.Response
+import com.gabriaum.app.service.DailyLimitListener
+import com.gabriaum.app.service.DailyLimitService
+import com.gabriaum.app.service.WebhookService
 import androidx.core.content.ContextCompat
 import java.util.Locale
 

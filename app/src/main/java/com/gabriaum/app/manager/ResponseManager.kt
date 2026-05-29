@@ -1,6 +1,6 @@
-package com.gabriaum.app.domain.controller
+package com.gabriaum.app.manager
 
-import com.gabriaum.app.domain.model.Response
+import com.gabriaum.app.model.Response
 
 class ResponseManager: ArrayList<Response>() {
     init {

@@ -1,4 +1,4 @@
-package com.gabriaum.app.domain.service
+package com.gabriaum.app.service
 
 import android.os.CountDownTimer
 import com.gabriaum.app.backend.data.ExpireData

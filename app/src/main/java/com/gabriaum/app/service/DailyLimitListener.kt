@@ -1,4 +1,4 @@
-package com.gabriaum.app.domain.service
+package com.gabriaum.app.service
 
 interface DailyLimitListener {
     fun onLimitActive(remainingTimeMs: Long)

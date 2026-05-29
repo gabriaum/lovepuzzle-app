@@ -1,4 +1,4 @@
-package com.gabriaum.app.domain.service
+package com.gabriaum.app.service
 
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient

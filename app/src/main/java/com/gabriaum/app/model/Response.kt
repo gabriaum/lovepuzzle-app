@@ -1,3 +1,3 @@
-package com.gabriaum.app.domain.model
+package com.gabriaum.app.model
 
 class Response(var question: String, var expected: String) {}
