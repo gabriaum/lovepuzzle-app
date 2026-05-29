@@ -21,24 +21,7 @@ Progress is persisted locally, and the app includes a daily progression limit.
 - AndroidX + Material Components
 - OkHttp (for webhook requests)
 - SQLite via `openOrCreateDatabase`
-
-## Project Structure
-
-```text
-app/src/main/java/com/gabriaum/order/
-  ui/                    # Activities (Splash, Main, Order)
-  controller/            # Puzzle question source (ResponseController)
-  model/                 # Response model
-  service/               # Daily limit + webhook services
-  backend/data/          # Data abstractions
-  backend/data/impl/     # SQLite implementations
-  backend/database/sql/  # Database connection helper
-
-app/src/main/res/
-  layout/                # UI layouts
-  drawable/, anim/       # Visual resources and animations
-```
-
+- 
 ## Getting Started
 
 ### Prerequisites
@@ -66,9 +49,9 @@ app/src/main/res/
 
 ### Puzzle content
 
-Edit `ResponseController` to customize questions and expected answers:
+Edit `ResponseManager` to customize questions and expected answers:
 
-- File: `app/src/main/java/com/gabriaum/order/controller/ResponseController.kt`
+- File: `app/src/main/java/com/gabriaum/order/manager/ResponseManager.kt`
 
 ### Daily limit
 
